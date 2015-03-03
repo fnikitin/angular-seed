@@ -1,6 +1,9 @@
 /**
  * Created by fnikitin on 03/03/15.
  */
-function HelloController($scope) {
+
+// This controller asks for data bind objects
+// Angular injects scope and location
+function HelloController($scope, $location) {
     $scope.who = { text: 'World' };
 }
