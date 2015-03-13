@@ -1,0 +1,12 @@
+<p>Tri-state checkbox demo</p>
+
+<div data-ng-repeat="person in model.people" class="person">
+    <label>
+        <input type="checkbox" data-indeterminate-checkbox data-child-list="person.fruits" data-property="eaten" data-ng-model="person.allEaten"> {{person.name}} [All eaten: {{person.allEaten}}]
+    </label>
+    <div data-ng-repeat="fruit in person.fruits" class="child-list">
+        <label>
+            <input type="checkbox" data-ng-model="fruit.eaten"> {{fruit.type}}
+        </label>
+    </div>
+</div>
