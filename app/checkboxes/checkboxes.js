@@ -45,8 +45,17 @@ angular.module('myApp.checkboxes', ['ngRoute'])
  */
 .directive('indeterminateCheckbox', [function() {
     return {
+        // Create a new scope for this directive rather than inheriting the parent scope.
         scope: true,
+        // Require that "ngModel" directive be present for this directive to function correctly.
         require: '?ngModel',
+        // compile function produces a link function. This is the place where you can do the DOM manipulation mostly.
+        compile: function(tElement, tAttrs) {
+            tElement.append('Added during compilation phase!');
+        },
+        // scope – A scope to be used by the directive.
+        // element – An element the directive is bound to (https://docs.angularjs.org/api/ng/function/angular.element)
+        // attrs – A list of attributes associated with the element.
         link: function(scope, element, attrs, modelCtrl) {
             var childList = attrs.childList;
             var property = attrs.property;

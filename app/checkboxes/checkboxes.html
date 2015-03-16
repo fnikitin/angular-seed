@@ -2,6 +2,7 @@
 
 <div data-ng-repeat="person in model.people" class="person">
     <label>
+        <!-- http://stackoverflow.com/questions/16589853/ng-app-vs-data-ng-app-what-is-the-difference -->
         <input type="checkbox" data-indeterminate-checkbox data-child-list="person.fruits" data-property="eaten" data-ng-model="person.allEaten"> {{person.name}} [All eaten: {{person.allEaten}}]
     </label>
     <div data-ng-repeat="fruit in person.fruits" class="child-list">
