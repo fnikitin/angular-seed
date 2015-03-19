@@ -49,10 +49,6 @@ angular.module('myApp.checkboxes', ['ngRoute'])
         scope: true,
         // Require that "ngModel" directive be present for this directive to function correctly.
         require: '?ngModel',
-        // compile function produces a link function. This is the place where you can do the DOM manipulation mostly.
-        compile: function(tElement, tAttrs) {
-            tElement.append('Added during compilation phase!');
-        },
         // scope – A scope to be used by the directive.
         // element – An element the directive is bound to (https://docs.angularjs.org/api/ng/function/angular.element)
         // attrs – A list of attributes associated with the element.
@@ -103,4 +99,52 @@ angular.module('myApp.checkboxes', ['ngRoute'])
             }, true);
         }
     };
-}]);
+}])
+
+// http://schlogen.github.io/angular-multi-check/
+.directive('multiCheckGroup', function () {
+    return {
+        scope: {},
+        controller: function ($scope) {
+            this.getElements = function () {
+                var dataMultiCheck = Array.prototype.slice.call($scope.element[0].querySelectorAll('[data-multi-check]'), 0);
+                var multiCheck = Array.prototype.slice.call($scope.element[0].querySelectorAll('[multi-check]'), 0);
+
+                return multiCheck.concat(dataMultiCheck);
+            };
+            this.lastChecked = null;
+        },
+        link: function (scope, element) {
+            scope.element = element;
+        }
+    };
+}).directive('multiCheck', function () {
+    return {
+        require: ['^ngModel', '^multiCheckGroup'],
+        restrict: 'A',
+        link: function (scope, el, attrs, controllers) {
+            var groupCtrl = controllers[1];
+
+            el.bind('click', function (event) {
+                var last = groupCtrl.lastChecked;
+                if (last && event.shiftKey) {
+                    var chkboxes = groupCtrl.getElements(),
+                        start = chkboxes.indexOf(event.target),
+                        end = chkboxes.indexOf(last),
+                        checked = last.checked;
+
+                    angular.forEach(chkboxes.slice(Math.min(start, end), Math.max(start, end) + 1), function (box) {
+                        var model = angular.element(box).data('$ngModelController');
+
+                        console.log(model)
+
+                        model.$setViewValue(checked);
+                        model.$render();
+                    });
+                }
+                groupCtrl.lastChecked = event.target;
+            });
+
+        }
+    };
+});
