@@ -9,6 +9,7 @@ angular.module('myApp', [
         'myApp.cart',
         'myApp.checkboxes',
         'myApp.version',
+        'myApp.modals',
         'myApp.dialogs'
     ])
     .config(['$routeProvider', function ($routeProvider) {

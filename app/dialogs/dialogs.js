@@ -1,5 +1,6 @@
 'use strict';
 
+// http://codepen.io/m-e-conroy/pen/ALsdF
 angular.module('myApp.dialogs', ['ngRoute','ui.bootstrap','dialogs'])
 
     .config(['$routeProvider', function($routeProvider) {
