@@ -18,7 +18,7 @@ angular.module('myApp.modals', ['ngRoute', 'ui.bootstrap'])
 
         var modalInstance = $modal.open({
             // A path to a template representing modal's content
-            templateUrl: 'modal.html',
+            templateUrl: 'modals/modal.html',
             // A controller for a modal instance - it can initialize scope used by modal.
             // accepts the "controller-as" syntax in the form 'SomeCtrl as myctrl'; can be injected with $modalInstance
             controller: 'ModalInstanceCtrl',
