@@ -17,9 +17,15 @@ angular.module('myApp.modals', ['ngRoute', 'ui.bootstrap'])
     $scope.open = function (size) {
 
         var modalInstance = $modal.open({
-            templateUrl: 'modals/modals.html',
+            // A path to a template representing modal's content
+            templateUrl: 'modal.html',
+            // A controller for a modal instance - it can initialize scope used by modal.
+            // accepts the "controller-as" syntax in the form 'SomeCtrl as myctrl'; can be injected with $modalInstance
             controller: 'ModalInstanceCtrl',
+            // Optional size of modal window. Allowed values: 'sm' (small) or 'lg' (large)
             size: size,
+            // Members that will be resolved and passed to the controller as locals; it is equivalent
+            // of the resolve property for AngularJS routes
             resolve: {
                 items: function () {
                     return $scope.items;
