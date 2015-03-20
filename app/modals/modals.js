@@ -16,6 +16,11 @@ angular.module('myApp.modals', ['ngRoute', 'ui.bootstrap'])
 
     $scope.open = function (size) {
 
+        // The open method returns a modal instance, an object with the following properties:
+        // * close(result) - a method that can be used to close a modal, passing a result
+        // * dismiss(reason) - a method that can be used to dismiss a modal, passing a reason
+        // * result - a promise that is resolved when a modal is closed and rejected when a modal is dismissed
+        // * opened - a promise that is resolved when a modal gets opened after downloading content's template and resolving all variables
         var modalInstance = $modal.open({
             // A path to a template representing modal's content
             templateUrl: 'modals/modal.html',
@@ -27,17 +32,25 @@ angular.module('myApp.modals', ['ngRoute', 'ui.bootstrap'])
             // Members that will be resolved and passed to the controller as locals; it is equivalent
             // of the resolve property for AngularJS routes
             resolve: {
+                // inject items into ModalInstanceCtrl
                 items: function () {
                     return $scope.items;
                 }
             }
         });
 
-        modalInstance.result.then(function (selectedItem) {
-            $scope.selected = selectedItem;
-        }, function () {
-            $log.info('Modal dismissed at: ' + new Date());
-        });
+        modalInstance.result.then(
+
+            // function to be executed when the promise is fulfilled
+            function (selectedItem) {
+                $log.info(selectedItem, " has been selected");
+                $scope.selected = selectedItem;
+            },
+            // function to be executed when the promise is rejected
+            function (reason) {
+                $log.info(reason, ': modal dismissed at ' + new Date());
+            }
+        );
     };
 })
 
@@ -48,14 +61,17 @@ angular.module('myApp.modals', ['ngRoute', 'ui.bootstrap'])
 
     $scope.items = items;
     $scope.selected = {
+        // select 1st item by default
         item: $scope.items[0]
     };
 
     $scope.ok = function () {
+        // promise is fulfilled with given items
         $modalInstance.close($scope.selected.item);
     };
 
     $scope.cancel = function () {
+        // promise is rejected with the reason 'cancel'
         $modalInstance.dismiss('cancel');
     };
 });
