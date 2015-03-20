@@ -8,7 +8,8 @@ angular.module('myApp', [
         'myApp.view3',
         'myApp.cart',
         'myApp.checkboxes',
-        'myApp.version'
+        'myApp.version',
+        'myApp.modal'
     ])
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.otherwise({redirectTo: '/view1'});
